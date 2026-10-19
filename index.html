@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="경영정보학부 26학번 강유담의 소개 페이지입니다. 관심 분야, 배우는 것, 앞으로의 계획을 담았습니다.">
     <title>강유담 | 경영정보학부</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font - Noto Sans KR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,19 +14,22 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Noto Sans KR', 'sans-serif'],
+                    fontFamily: { sans: ['Noto Sans KR', 'sans-serif'] },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delay': 'float 6s ease-in-out 2s infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4,0,0.6,1) infinite',
                     },
-                    colors: {
-                        brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            200: '#bae0fd',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#1e3a8a',
-                        }
+                    keyframes: {
+                        float: {
+                            '0%,100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-18px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% center' },
+                            '100%': { backgroundPosition: '200% center' },
+                        },
                     }
                 }
             }
@@ -38,107 +38,264 @@
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
+            background: #0a0a1a;
+            color: #e2e8f0;
             word-break: keep-all;
+            overflow-x: hidden;
         }
+
+        /* 배경 그라디언트 오브 */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-orb-1 { width: 600px; height: 600px; background: #7c3aed; top: -200px; left: -150px; animation: float 8s ease-in-out infinite; }
+        .bg-orb-2 { width: 500px; height: 500px; background: #ec4899; top: 30%; right: -150px; animation: float 10s ease-in-out 2s infinite; }
+        .bg-orb-3 { width: 400px; height: 400px; background: #06b6d4; bottom: 10%; left: 20%; animation: float 9s ease-in-out 4s infinite; }
+
+        /* 글래스 헤더 */
         .glass-header {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(10, 10, 26, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* 글래스 카드 */
+        .glass-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            transition: all 0.35s ease;
         }
-        .card-hover {
+        .glass-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(167, 139, 250, 0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.4);
+        }
+
+        /* 그라디언트 텍스트 */
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa 0%, #ec4899 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-blue {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* 글로우 버튼 */
+        .glow-btn {
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            box-shadow: 0 0 20px rgba(124,58,237,0.5), 0 0 40px rgba(236,72,153,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .glow-btn:hover::before { left: 100%; }
+        .glow-btn:hover {
+            box-shadow: 0 0 30px rgba(124,58,237,0.7), 0 0 60px rgba(236,72,153,0.5);
+            transform: translateY(-2px);
+        }
+
+        /* 배지 */
+        .badge-glow {
+            background: linear-gradient(135deg, rgba(124,58,237,0.25), rgba(236,72,153,0.25));
+            border: 1px solid rgba(167,139,250,0.4);
+            color: #c4b5fd;
+        }
+
+        /* 섹션 아이콘 */
+        .section-icon {
+            background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(236,72,153,0.3));
+            border: 1px solid rgba(167,139,250,0.3);
+        }
+
+        /* 아이템 행 */
+        .list-item-glow {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
             transition: all 0.3s ease;
         }
-        .card-hover:hover {
+        .list-item-glow:hover {
+            background: rgba(124,58,237,0.1);
+            border-color: rgba(167,139,250,0.4);
+        }
+
+        /* 아이콘 박스 */
+        .icon-box {
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            box-shadow: 0 4px 15px rgba(124,58,237,0.4);
+        }
+
+        /* plans 카드 */
+        .plan-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s ease;
+        }
+        .plan-card:hover {
+            background: rgba(124,58,237,0.12);
+            border-color: rgba(167,139,250,0.5);
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 별 파티클 */
+        .star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--dur) ease-in-out infinite var(--delay);
+        }
+        @keyframes twinkle {
+            0%,100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.5); }
+        }
+
+        /* 연락 섹션 */
+        .contact-card {
+            background: linear-gradient(135deg, rgba(124,58,237,0.3) 0%, rgba(236,72,153,0.3) 50%, rgba(6,182,212,0.2) 100%);
+            border: 1px solid rgba(167,139,250,0.3);
+        }
+
+        /* 푸터 */
+        footer {
+            background: rgba(255,255,255,0.02);
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+
+        /* 모바일 메뉴 */
+        #mobile-menu {
+            background: rgba(10,10,26,0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* 스크롤바 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a1a; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(#7c3aed, #ec4899); border-radius: 3px; }
+
+        @keyframes float {
+            0%,100% { transform: translateY(0px); }
+            50% { transform: translateY(-18px); }
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white" id="top">
+<body id="top">
+
+    <!-- 배경 오브 -->
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
 
     <!-- Navigation Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-header border-b border-slate-200/80 transition-all duration-300">
+    <header class="fixed top-0 left-0 right-0 z-50 glass-header transition-all duration-300">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Brand Title -->
-                <a href="#top" class="flex items-center space-x-2 text-xl font-bold text-slate-900 hover:text-brand-600 transition-colors">
-                    <span class="w-3 h-3 rounded-full bg-brand-600 inline-block"></span>
-                    <span>강유담</span>
+                <a href="#top" class="flex items-center space-x-2 text-xl font-bold hover:opacity-80 transition-opacity">
+                    <span class="w-3 h-3 rounded-full bg-gradient-to-r from-violet-500 to-pink-500 inline-block shadow-lg shadow-violet-500/50"></span>
+                    <span class="gradient-text">강유담</span>
                 </a>
 
-                <!-- Desktop Nav Links -->
-                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-                    <a href="#about" class="hover:text-brand-600 transition-colors py-1">소개</a>
-                    <a href="#interests" class="hover:text-brand-600 transition-colors py-1">관심 분야</a>
-                    <a href="#now" class="hover:text-brand-600 transition-colors py-1">지금 배우는 것</a>
-                    <a href="#plans" class="hover:text-brand-600 transition-colors py-1">앞으로 해 볼 것</a>
-                    <a href="#contact" class="hover:text-brand-600 transition-colors py-1 text-brand-600 font-semibold">연락</a>
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+                    <a href="#about" class="hover:text-violet-300 transition-colors py-1">소개</a>
+                    <a href="#interests" class="hover:text-violet-300 transition-colors py-1">관심 분야</a>
+                    <a href="#now" class="hover:text-violet-300 transition-colors py-1">지금 배우는 것</a>
+                    <a href="#plans" class="hover:text-violet-300 transition-colors py-1">앞으로 해 볼 것</a>
+                    <a href="#contact" class="px-4 py-1.5 rounded-full text-white glow-btn text-xs font-semibold">연락</a>
                 </nav>
 
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" type="button" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
+                <button id="mobile-menu-btn" type="button" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 focus:outline-none transition-colors" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
                     <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-4 space-y-2 text-base font-medium shadow-lg">
-            <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-700 hover:bg-slate-50 hover:text-brand-600">소개</a>
-            <a href="#interests" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-700 hover:bg-slate-50 hover:text-brand-600">관심 분야</a>
-            <a href="#now" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-700 hover:bg-slate-50 hover:text-brand-600">지금 배우는 것</a>
-            <a href="#plans" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-700 hover:bg-slate-50 hover:text-brand-600">앞으로 해 볼 것</a>
-            <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-md text-brand-600 bg-brand-50 hover:bg-brand-100 font-semibold">연락</a>
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-1 text-base font-medium shadow-lg">
+            <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-300 hover:bg-white/10 hover:text-violet-300 transition-colors">소개</a>
+            <a href="#interests" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-300 hover:bg-white/10 hover:text-violet-300 transition-colors">관심 분야</a>
+            <a href="#now" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-300 hover:bg-white/10 hover:text-violet-300 transition-colors">지금 배우는 것</a>
+            <a href="#plans" class="mobile-nav-link block px-3 py-2 rounded-md text-slate-300 hover:bg-white/10 hover:text-violet-300 transition-colors">앞으로 해 볼 것</a>
+            <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-md text-violet-300 bg-violet-500/10 font-semibold">연락</a>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="pt-20">
+    <main class="pt-20 relative z-10">
 
         <!-- Hero Section -->
-        <section class="py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-            <div class="bg-gradient-to-br from-white via-slate-50 to-brand-50/40 rounded-3xl p-8 sm:p-12 md:p-16 border border-slate-200/80 shadow-sm relative overflow-hidden">
-                <div class="absolute -top-12 -right-12 w-64 h-64 bg-brand-200/30 rounded-full blur-3xl pointer-events-none"></div>
-                
+        <section class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+            <div class="glass-card rounded-3xl p-8 sm:p-12 md:p-16 relative overflow-hidden">
+                <!-- 장식 원들 -->
+                <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-violet-600/30 to-pink-600/20 blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-gradient-to-tr from-cyan-500/20 to-violet-500/20 blur-3xl pointer-events-none"></div>
+
+                <!-- 별 파티클 -->
+                <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div class="star" style="top:15%;left:80%;--dur:3s;--delay:0s"></div>
+                    <div class="star" style="top:70%;left:90%;--dur:4s;--delay:1s"></div>
+                    <div class="star" style="top:30%;left:5%;--dur:3.5s;--delay:0.5s"></div>
+                    <div class="star" style="top:85%;left:40%;--dur:2.5s;--delay:2s"></div>
+                    <div class="star" style="top:10%;left:50%;--dur:4s;--delay:1.5s"></div>
+                </div>
+
                 <div class="max-w-3xl relative z-10">
-                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-700 mb-6">
-                        <span class="w-2 h-2 rounded-full bg-brand-500 mr-2 animate-pulse"></span>
-                         경영정보학부 26학번
+                    <div class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold badge-glow mb-6">
+                        <span class="w-2 h-2 rounded-full bg-violet-400 mr-2 animate-pulse"></span>
+                        경영정보학부 26학번
                     </div>
-                    
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
-                        안녕하세요, 26학번 경영정보학부 <span class="text-brand-600 inline-block">강유담</span>입니다.
+
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 text-white">
+                        안녕하세요, 26학번 경영정보학부<br>
+                        <span class="gradient-text">강유담</span>입니다.
                     </h1>
-                    
-                    <p class="text-lg sm:text-xl text-slate-600 leading-relaxed mb-8 font-normal">
-                        경영과 기술이 만나는 곳에서 배우고 있는 새내기입니다. 같은 수업 동기와 선배, 교수님께 저를 소개하려고 만든 페이지입니다.
+
+                    <p class="text-lg sm:text-xl text-slate-400 leading-relaxed mb-10 font-normal">
+                        경영과 기술이 만나는 곳에서 배우고 있는 새내기입니다.<br class="hidden sm:block"> 같은 수업 동기와 선배, 교수님께 저를 소개하려고 만든 페이지입니다.
                     </p>
-                    
-                    <a href="#interests" class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-brand-600 text-white font-medium text-base hover:bg-brand-700 shadow-md hover:shadow-lg transition-all transform active:scale-95 group">
+
+                    <a href="#interests" class="glow-btn inline-flex items-center justify-center px-8 py-4 rounded-2xl text-white font-semibold text-base group">
                         <span>관심 분야 먼저 보기</span>
-                        <i class="fa-solid fa-arrow-down ml-2 text-sm group-hover:translate-y-0.5 transition-transform"></i>
+                        <i class="fa-solid fa-arrow-down ml-2 text-sm group-hover:translate-y-1 transition-transform duration-300"></i>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- 1. 소개 (#about) Section -->
+        <!-- 1. 소개 -->
         <section id="about" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-20">
             <div class="flex items-center space-x-3 mb-8">
-                <div class="p-2.5 bg-brand-100 rounded-xl text-brand-600">
+                <div class="p-2.5 section-icon rounded-xl text-violet-300">
                     <i class="fa-solid fa-user text-xl"></i>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">소개</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold gradient-text-blue">소개</h2>
             </div>
 
-            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+            <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
                 <div class="flex items-start space-x-4">
-                    <div class="mt-1 text-brand-500 shrink-0">
-                        <i class="fa-solid fa-quote-left text-2xl opacity-40"></i>
+                    <div class="mt-1 shrink-0">
+                        <i class="fa-solid fa-quote-left text-3xl text-violet-500/50"></i>
                     </div>
-                    <div class="space-y-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+                    <div class="space-y-4 text-base sm:text-lg text-slate-300 leading-relaxed">
                         <p>
                             2026학년도에 경영정보학부(MIS)에 입학한 1학년 강유담입니다. 데이터를 보는 것보다 그 데이터로 어떤 문제를 풀 수 있는지 묻는 일에 더 끌립니다.
                         </p>
@@ -150,132 +307,134 @@
             </div>
         </section>
 
-        <!-- 2. 관심 분야 (#interests) Section -->
+        <!-- 2. 관심 분야 -->
         <section id="interests" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-20">
             <div class="flex items-center space-x-3 mb-8">
-                <div class="p-2.5 bg-brand-100 rounded-xl text-brand-600">
+                <div class="p-2.5 section-icon rounded-xl text-violet-300">
                     <i class="fa-solid fa-compass text-xl"></i>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">관심 분야</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold gradient-text-blue">관심 분야</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- 비즈니스 Card -->
-                <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm card-hover flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold mb-4">
-                            <i class="fa-solid fa-briefcase"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">비즈니스</h3>
-                        <ul class="text-slate-600 space-y-2 text-sm sm:text-base">
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2"></span>서비스 기획</li>
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2"></span>문제 정의</li>
-                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2"></span>사용자 경험</li>
-                        </ul>
+                <!-- 비즈니스 -->
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <div class="w-12 h-12 rounded-xl icon-box flex items-center justify-center text-xl text-white mb-4 shrink-0">
+                        <i class="fa-solid fa-briefcase"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">비즈니스</h3>
+                    <ul class="text-slate-400 space-y-2 text-sm sm:text-base">
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 rounded-full bg-violet-400 mr-2 shrink-0"></span>서비스 기획
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 rounded-full bg-pink-400 mr-2 shrink-0"></span>문제 정의
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2 shrink-0"></span>사용자 경험
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- 데이터 Card -->
-                <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm card-hover flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold mb-4">
-                            <i class="fa-solid fa-chart-pie"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">데이터</h3>
-                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                            데이터를 정리하고 한눈에 보이게 만드는 일
-                        </p>
+                <!-- 데이터 -->
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <div class="w-12 h-12 rounded-xl icon-box flex items-center justify-center text-xl text-white mb-4 shrink-0">
+                        <i class="fa-solid fa-chart-pie"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">데이터</h3>
+                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                        데이터를 정리하고 한눈에 보이게 만드는 일
+                    </p>
                 </div>
 
-                <!-- 기술 Card -->
-                <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm card-hover flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold mb-4">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">기술</h3>
-                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                            웹이 어떻게 동작하는지, 서비스가 어떤 구조로 만들어지는지
-                        </p>
+                <!-- 기술 -->
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <div class="w-12 h-12 rounded-xl icon-box flex items-center justify-center text-xl text-white mb-4 shrink-0">
+                        <i class="fa-solid fa-code"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">기술</h3>
+                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                        웹이 어떻게 동작하는지, 서비스가 어떤 구조로 만들어지는지
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- 3. 지금 배우는 것 (#now) Section -->
+        <!-- 3. 지금 배우는 것 -->
         <section id="now" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-20">
             <div class="flex items-center space-x-3 mb-8">
-                <div class="p-2.5 bg-brand-100 rounded-xl text-brand-600">
+                <div class="p-2.5 section-icon rounded-xl text-violet-300">
                     <i class="fa-solid fa-book-open text-xl"></i>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">지금 배우는 것</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold gradient-text-blue">지금 배우는 것</h2>
             </div>
 
-            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
                 <div class="space-y-4">
-                    <div class="flex items-start p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <div class="p-2 bg-brand-500 text-white rounded-lg mr-4 shrink-0 mt-0.5">
-                            <i class="fa-solid fa-laptop-code text-sm"></i>
+                    <div class="list-item-glow flex items-center p-4 rounded-xl">
+                        <div class="p-2.5 icon-box rounded-lg mr-4 shrink-0">
+                            <i class="fa-solid fa-laptop-code text-sm text-white"></i>
                         </div>
-                        <span class="text-slate-700 text-base sm:text-lg font-medium self-center">HTML로 내용을 나누고 CSS로 모양을 바꾸기</span>
+                        <span class="text-slate-200 text-base sm:text-lg font-medium">HTML로 내용을 나누고 CSS로 모양을 바꾸기</span>
                     </div>
 
-                    <div class="flex items-start p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <div class="p-2 bg-brand-500 text-white rounded-lg mr-4 shrink-0 mt-0.5">
-                            <i class="fa-solid fa-graduation-cap text-sm"></i>
+                    <div class="list-item-glow flex items-center p-4 rounded-xl">
+                        <div class="p-2.5 icon-box rounded-lg mr-4 shrink-0">
+                            <i class="fa-solid fa-graduation-cap text-sm text-white"></i>
                         </div>
-                        <span class="text-slate-700 text-base sm:text-lg font-medium self-center">경영정보학의 기본 개념 익히기</span>
+                        <span class="text-slate-200 text-base sm:text-lg font-medium">경영정보학의 기본 개념 익히기</span>
                     </div>
 
-                    <div class="flex items-start p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <div class="p-2 bg-brand-500 text-white rounded-lg mr-4 shrink-0 mt-0.5">
-                            <i class="fa-solid fa-arrows-rotate text-sm"></i>
+                    <div class="list-item-glow flex items-center p-4 rounded-xl">
+                        <div class="p-2.5 icon-box rounded-lg mr-4 shrink-0">
+                            <i class="fa-solid fa-arrows-rotate text-sm text-white"></i>
                         </div>
-                        <span class="text-slate-700 text-base sm:text-lg font-medium self-center">친구가 써 보는 모습을 보고 한 가지씩 고치기</span>
+                        <span class="text-slate-200 text-base sm:text-lg font-medium">친구가 써 보는 모습을 보고 한 가지씩 고치기</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. 앞으로 해 볼 것 (#plans) Section -->
+        <!-- 4. 앞으로 해 볼 것 -->
         <section id="plans" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-20">
             <div class="flex items-center space-x-3 mb-8">
-                <div class="p-2.5 bg-brand-100 rounded-xl text-brand-600">
+                <div class="p-2.5 section-icon rounded-xl text-violet-300">
                     <i class="fa-solid fa-rocket text-xl"></i>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">앞으로 해 볼 것</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold gradient-text-blue">앞으로 해 볼 것</h2>
             </div>
 
-            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm relative overflow-hidden">
-                <div class="mb-6 inline-flex items-center text-xs font-semibold px-3 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-200">
+            <div class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-violet-600/20 to-transparent rounded-bl-full pointer-events-none"></div>
+
+                <div class="mb-6 inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">
                     <i class="fa-regular fa-clock mr-1.5"></i> 아직 시작하지 않은 계획입니다.
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="p-5 rounded-xl border border-dashed border-slate-300 bg-slate-50/50 flex flex-col justify-between">
-                        <div class="text-brand-600 mb-3 text-lg">
-                            <i class="fa-solid fa-database"></i>
+                    <div class="plan-card p-5 rounded-xl flex flex-col">
+                        <div class="text-2xl mb-3">
+                            <i class="fa-solid fa-database gradient-text"></i>
                         </div>
-                        <p class="text-slate-700 font-medium text-sm sm:text-base">
+                        <p class="text-slate-300 font-medium text-sm sm:text-base leading-relaxed">
                             SQL과 Python으로 데이터를 정리하고 시각화해 보기
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-xl border border-dashed border-slate-300 bg-slate-50/50 flex flex-col justify-between">
-                        <div class="text-brand-600 mb-3 text-lg">
-                            <i class="fa-solid fa-comments"></i>
+                    <div class="plan-card p-5 rounded-xl flex flex-col">
+                        <div class="text-2xl mb-3">
+                            <i class="fa-solid fa-comments gradient-text"></i>
                         </div>
-                        <p class="text-slate-700 font-medium text-sm sm:text-base">
+                        <p class="text-slate-300 font-medium text-sm sm:text-base leading-relaxed">
                             학내 불편을 하나 골라 사용자 인터뷰로 문제 정의해 보기
                         </p>
                     </div>
 
-                    <div class="p-5 rounded-xl border border-dashed border-slate-300 bg-slate-50/50 flex flex-col justify-between">
-                        <div class="text-brand-600 mb-3 text-lg">
-                            <i class="fa-solid fa-users"></i>
+                    <div class="plan-card p-5 rounded-xl flex flex-col">
+                        <div class="text-2xl mb-3">
+                            <i class="fa-solid fa-users gradient-text"></i>
                         </div>
-                        <p class="text-slate-700 font-medium text-sm sm:text-base">
+                        <p class="text-slate-300 font-medium text-sm sm:text-base leading-relaxed">
                             MIS 관련 동아리나 교내 프로젝트에 참여해 보기
                         </p>
                     </div>
@@ -283,19 +442,23 @@
             </div>
         </section>
 
-        <!-- 5. 연락 (#contact) Section -->
+        <!-- 5. 연락 -->
         <section id="contact" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-20">
-            <div class="bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden text-center">
+            <div class="contact-card rounded-3xl p-8 sm:p-12 relative overflow-hidden text-center">
+                <!-- 장식 -->
+                <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-violet-500/20 blur-2xl pointer-events-none"></div>
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-pink-500/20 blur-2xl pointer-events-none"></div>
+
                 <div class="max-w-xl mx-auto space-y-6 relative z-10">
-                    <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto text-2xl backdrop-blur-sm">
+                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto text-2xl text-white icon-box shadow-lg shadow-violet-500/30">
                         <i class="fa-regular fa-paper-plane"></i>
                     </div>
-                    <h2 class="text-2xl sm:text-3xl font-bold">연락하기</h2>
-                    <p class="text-brand-100 text-base sm:text-lg leading-relaxed">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">연락하기</h2>
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
                         수업이나 프로젝트에 대해 이야기하고 싶으면 메일로 알려 주세요.
                     </p>
                     <div class="pt-2">
-                        <a href="mailto:kangudam@naver.com" class="inline-flex items-center space-x-3 px-6 py-4 rounded-xl bg-white text-brand-700 font-semibold text-lg hover:bg-brand-50 transition-all shadow-md hover:shadow-lg active:scale-95">
+                        <a href="mailto:kangudam@naver.com" class="glow-btn inline-flex items-center space-x-3 px-8 py-4 rounded-2xl text-white font-semibold text-lg">
                             <i class="fa-regular fa-envelope text-xl"></i>
                             <span>kangudam@naver.com</span>
                         </a>
@@ -306,26 +469,25 @@
 
     </main>
 
-    <!-- Footer & Back to Top -->
-    <footer class="border-t border-slate-200 bg-white py-12 px-4 sm:px-6 lg:px-8 mt-12">
+    <!-- Footer -->
+    <footer class="py-12 px-4 sm:px-6 lg:px-8 mt-12 relative z-10">
         <div class="max-w-5xl mx-auto flex flex-col items-center space-y-6 text-center">
-            
-            <p class="text-slate-600 font-medium italic text-sm sm:text-base bg-slate-50 px-6 py-3 rounded-full border border-slate-100">
+
+            <p class="text-slate-400 font-medium italic text-sm sm:text-base px-6 py-3 rounded-full glass-card border-0">
                 "작은 결과를 사용해 보고, 다음에 바꿀 한 가지를 고릅니다."
             </p>
 
-            <a href="#top" class="inline-flex items-center space-x-2 text-sm text-slate-500 hover:text-brand-600 transition-colors py-2 px-4 rounded-lg hover:bg-slate-50">
+            <a href="#top" class="inline-flex items-center space-x-2 text-sm text-slate-500 hover:text-violet-400 transition-colors py-2 px-4 rounded-lg hover:bg-white/5">
                 <i class="fa-solid fa-arrow-up"></i>
                 <span>맨 위로 이동</span>
             </a>
 
-            <p class="text-xs text-slate-400">
+            <p class="text-xs text-slate-600">
                 © 2026 강유담 · 경영정보학부
             </p>
         </div>
     </footer>
 
-    <!-- Mobile Menu Toggle Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -337,25 +499,21 @@
                 const isHidden = mobileMenu.classList.contains('hidden');
                 if (isHidden) {
                     mobileMenu.classList.remove('hidden');
-                    menuIcon.classList.remove('fa-bars');
-                    menuIcon.classList.add('fa-xmark');
+                    menuIcon.classList.replace('fa-bars', 'fa-xmark');
                     mobileMenuBtn.setAttribute('aria-expanded', 'true');
                     mobileMenuBtn.setAttribute('aria-label', '메뉴 닫기');
                 } else {
                     mobileMenu.classList.add('hidden');
-                    menuIcon.classList.remove('fa-xmark');
-                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.replace('fa-xmark', 'fa-bars');
                     mobileMenuBtn.setAttribute('aria-expanded', 'false');
                     mobileMenuBtn.setAttribute('aria-label', '메뉴 열기');
                 }
             });
 
-            // Close mobile menu when clicking a link
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
-                    menuIcon.classList.remove('fa-xmark');
-                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.replace('fa-xmark', 'fa-bars');
                     mobileMenuBtn.setAttribute('aria-expanded', 'false');
                     mobileMenuBtn.setAttribute('aria-label', '메뉴 열기');
                 });
