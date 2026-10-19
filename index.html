@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="경영정보학부 26학번 강유담의 소개 페이지입니다. 관심 분야, 배우는 것, 앞으로의 계획을 담았습니다.">
     <title>강유담 | 경영정보학부</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -55,14 +56,14 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white" id="main">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white" id="top">
 
     <!-- Navigation Header -->
     <header class="fixed top-0 left-0 right-0 z-50 glass-header border-b border-slate-200/80 transition-all duration-300">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Brand Title -->
-                <a href="#main" class="flex items-center space-x-2 text-xl font-bold text-slate-900 hover:text-brand-600 transition-colors">
+                <a href="#top" class="flex items-center space-x-2 text-xl font-bold text-slate-900 hover:text-brand-600 transition-colors">
                     <span class="w-3 h-3 rounded-full bg-brand-600 inline-block"></span>
                     <span>강유담</span>
                 </a>
@@ -77,7 +78,7 @@
                 </nav>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" type="button" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none" aria-label="메뉴 열기">
+                <button id="mobile-menu-btn" type="button" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
                     <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
                 </button>
             </div>
@@ -313,7 +314,7 @@
                 "작은 결과를 사용해 보고, 다음에 바꿀 한 가지를 고릅니다."
             </p>
 
-            <a href="#main" class="inline-flex items-center space-x-2 text-sm text-slate-500 hover:text-brand-600 transition-colors py-2 px-4 rounded-lg hover:bg-slate-50">
+            <a href="#top" class="inline-flex items-center space-x-2 text-sm text-slate-500 hover:text-brand-600 transition-colors py-2 px-4 rounded-lg hover:bg-slate-50">
                 <i class="fa-solid fa-arrow-up"></i>
                 <span>맨 위로 이동</span>
             </a>
@@ -338,10 +339,14 @@
                     mobileMenu.classList.remove('hidden');
                     menuIcon.classList.remove('fa-bars');
                     menuIcon.classList.add('fa-xmark');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                    mobileMenuBtn.setAttribute('aria-label', '메뉴 닫기');
                 } else {
                     mobileMenu.classList.add('hidden');
                     menuIcon.classList.remove('fa-xmark');
                     menuIcon.classList.add('fa-bars');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    mobileMenuBtn.setAttribute('aria-label', '메뉴 열기');
                 }
             });
 
@@ -351,6 +356,8 @@
                     mobileMenu.classList.add('hidden');
                     menuIcon.classList.remove('fa-xmark');
                     menuIcon.classList.add('fa-bars');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    mobileMenuBtn.setAttribute('aria-label', '메뉴 열기');
                 });
             });
         });
