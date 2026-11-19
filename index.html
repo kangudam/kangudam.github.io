@@ -120,7 +120,7 @@
         .badge          { background: #fef0eb; border: 1px solid #f5c9bb; color: #c97058; }
         .list-item      { background: #fde8df; border: none; list-style: none; transition: background 0.2s ease; }
         .list-item:hover{ background: #fbd4c6; }
-        .plan-card      { background: #fdf8f3; border: 1px solid #ede5df; border-radius: 0.875rem; transition: background 0.2s, border-color 0.2s, transform 0.25s cubic-bezier(.34,1.56,.64,1); }
+        .plan-card      { background: #fdf8f3; border: 1px solid #ede5df; border-radius: 0.875rem; display: flex; flex-direction: column; transition: background 0.2s, border-color 0.2s, transform 0.25s cubic-bezier(.34,1.56,.64,1); }
         .plan-card:hover{ background: #fef0eb; border-color: #f5c9bb; transform: translateY(-4px); }
         .contact-card   { background: linear-gradient(135deg,#fff4ef 0%,#fff0f5 50%,#fffbf0 100%); border: 1px solid #f5c9bb; border-radius: 1.5rem; }
 
@@ -141,7 +141,6 @@
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            margin-top: 0.875rem;
             padding: 0.4rem 0.9rem;
             border-radius: 9999px;
             background: #fff0f5;
@@ -527,7 +526,7 @@
                         <div class="text-2xl mb-3 text-accent">
                             <i class="fa-solid fa-database"></i>
                         </div>
-                        <p class="font-medium text-sm sm:text-base leading-relaxed" style="color:#5c4a42;">
+                        <p class="font-medium text-sm sm:text-base leading-relaxed mb-5" style="color:#5c4a42;">
                             <span class="font-semibold text-accent">데이터 분석 툴 실습:</span> 전공 수업과 연계해 SQL로 원하는 데이터를 추출하고, Python(Pandas 등)을 활용해 공공데이터나 교내 설문 데이터를 시각화하는 미니 프로젝트 진행하기
                         </p>
                         <button type="button" class="cheer-btn mt-auto" data-cheer-key="data-tools" aria-label="데이터 분석 툴 실습 응원하기">
@@ -541,7 +540,7 @@
                         <div class="text-2xl mb-3 text-accent">
                             <i class="fa-solid fa-comments"></i>
                         </div>
-                        <p class="font-medium text-sm sm:text-base leading-relaxed" style="color:#5c4a42;">
+                        <p class="font-medium text-sm sm:text-base leading-relaxed mb-5" style="color:#5c4a42;">
                             <span class="font-semibold text-accent">교내 문제 해결 프로젝트:</span> 학우들이 학교생활 중 겪는 사소한 불편(예: 공지 확인, 공간 예약 등)을 하나 선정해 인터뷰를 진행하고, 간단한 서비스 기획안(PRD)과 프로토타입으로 발전시켜 보기
                         </p>
                         <button type="button" class="cheer-btn mt-auto" data-cheer-key="campus-problem" aria-label="교내 문제 해결 프로젝트 응원하기">
@@ -555,7 +554,7 @@
                         <div class="text-2xl mb-3 text-accent">
                             <i class="fa-solid fa-users"></i>
                         </div>
-                        <p class="font-medium text-sm sm:text-base leading-relaxed" style="color:#5c4a42;">
+                        <p class="font-medium text-sm sm:text-base leading-relaxed mb-5" style="color:#5c4a42;">
                             <span class="font-semibold text-accent">협업 경험 확장:</span> 학부 학생회·학회 활동이나 교내 IT/기획 프로젝트에 적극 참여해, 기획자와 개발자 사이에서 원활하게 소통하는 협업 역량 쌓기
                         </p>
                         <button type="button" class="cheer-btn mt-auto" data-cheer-key="collaboration" aria-label="협업 경험 확장 응원하기">
