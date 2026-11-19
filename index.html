@@ -136,6 +136,30 @@
         .guestbook-entry:hover { border-color: #f5c9bb; }
         .gb-status-msg { font-size: 0.8rem; min-height: 1.2em; }
 
+        /* ══ 응원 버튼 ═══════════════════════════════════════════ */
+        .cheer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.875rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 9999px;
+            background: #fff0f5;
+            border: 1px solid #f5c9bb;
+            color: #c97058;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease;
+            align-self: flex-start;
+        }
+        .cheer-btn:hover { background: #fde0ea; }
+        .cheer-btn:active { transform: scale(0.94); }
+        .cheer-btn:disabled { opacity: 0.6; cursor: default; }
+        .cheer-btn .cheer-icon { transition: transform 0.3s ease; }
+        .cheer-btn.cheered .cheer-icon { transform: scale(1.3) rotate(12deg); }
+        .cheer-count { font-variant-numeric: tabular-nums; }
+
         /* ══ 타임라인 ════════════════════════════════════════════ */
         .timeline-line { border-left: 2px solid #f5c9bb; }
         .timeline-dot {
@@ -487,6 +511,11 @@
                         <p class="font-medium text-sm sm:text-base leading-relaxed" style="color:#5c4a42;">
                             <span class="font-semibold text-accent">데이터 분석 툴 실습:</span> 전공 수업과 연계해 SQL로 원하는 데이터를 추출하고, Python(Pandas 등)을 활용해 공공데이터나 교내 설문 데이터를 시각화하는 미니 프로젝트 진행하기
                         </p>
+                        <button type="button" class="cheer-btn mt-auto" data-cheer-key="data-tools" aria-label="데이터 분석 툴 실습 응원하기">
+                            <span class="cheer-icon" aria-hidden="true">🌸</span>
+                            <span>응원</span>
+                            <span class="cheer-count">0</span>
+                        </button>
                     </div>
 
                     <div class="plan-card p-5 flex flex-col fade-up">
@@ -496,6 +525,11 @@
                         <p class="font-medium text-sm sm:text-base leading-relaxed" style="color:#5c4a42;">
                             <span class="font-semibold text-accent">교내 문제 해결 프로젝트:</span> 학우들이 학교생활 중 겪는 사소한 불편(예: 공지 확인, 공간 예약 등)을 하나 선정해 인터뷰를 진행하고, 간단한 서비스 기획안(PRD)과 프로토타입으로 발전시켜 보기
                         </p>
+                        <button type="button" class="cheer-btn mt-auto" data-cheer-key="campus-problem" aria-label="교내 문제 해결 프로젝트 응원하기">
+                            <span class="cheer-icon" aria-hidden="true">🌸</span>
+                            <span>응원</span>
+                            <span class="cheer-count">0</span>
+                        </button>
                     </div>
 
                     <div class="plan-card p-5 flex flex-col fade-up">
@@ -505,6 +539,11 @@
                         <p class="font-medium text-sm sm:text-base leading-relaxed" style="color:#5c4a42;">
                             <span class="font-semibold text-accent">협업 경험 확장:</span> 학부 학생회·학회 활동이나 교내 IT/기획 프로젝트에 적극 참여해, 기획자와 개발자 사이에서 원활하게 소통하는 협업 역량 쌓기
                         </p>
+                        <button type="button" class="cheer-btn mt-auto" data-cheer-key="collaboration" aria-label="협업 경험 확장 응원하기">
+                            <span class="cheer-icon" aria-hidden="true">🌸</span>
+                            <span>응원</span>
+                            <span class="cheer-count">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -690,7 +729,35 @@
                 setTimeout(() => setStatus(''), 3000);
             });
             msgEl.addEventListener('keydown', e => {
-                if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitEl.click(); }
+                                if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitEl.click(); }
+            });
+        });
+
+        // cheer feature
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.cheer-btn[data-cheer-key]');
+            if (buttons.length === 0) return;
+            const btnByKey = {};
+            buttons.forEach(btn => { btnByKey[btn.dataset.cheerKey] = btn; });
+            function setCount(btn, n) {
+                const el = btn.querySelector('.cheer-count');
+                if (el) el.textContent = n;
+            }
+            (async () => {
+                const { data, error } = await supabaseClient.from('cheers').select('item_key, cheer_count');
+                if (error || !data) return;
+                data.forEach(row => { const btn = btnByKey[row.item_key]; if (btn) setCount(btn, row.cheer_count); });
+            })();
+            buttons.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const key = btn.dataset.cheerKey;
+                    btn.disabled = true;
+                    btn.classList.add('cheered');
+                    setTimeout(() => btn.classList.remove('cheered'), 400);
+                    const { data, error } = await supabaseClient.rpc('add_cheer', { p_key: key });
+                    if (!error && data !== null && data !== undefined) setCount(btn, data);
+                    setTimeout(() => { btn.disabled = false; }, 600);
+                });
             });
         });
     </script>
