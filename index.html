@@ -162,37 +162,39 @@
         /* ══ 타임라인 ════════════════════════════════════════════ */
         .timeline {
             position: relative;
-            padding-left: 32px;
         }
-        /* 세로선: 첫 점 중심 ~ 마지막 점 중심 사이만 */
+        /* 세로선: 항목 컨테이너 기준, 중심 13px (left 12 + width 2의 절반) */
         .timeline::before {
             content: '';
             position: absolute;
-            left: 8px;
-            transform: translateX(-50%);
+            left: 12px;
             top: 8px;
             bottom: 8px;
             width: 2px;
             background: #f5c9bb;
         }
-        .timeline-item { position: relative; }
-        /* 점: 선과 동일한 left 기준 + translateX(-50%)로 중심 정렬 */
-        .timeline-dot,
-        .timeline-dot-current {
+        /* 각 항목: 점+선 공간 확보 */
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+        }
+        /* 점: 항목 기준 left:13px + translate(-50%,0)로 중심을 선(13px)에 일치 */
+        .timeline-item .timeline-dot,
+        .timeline-item .timeline-dot-current {
             position: absolute;
-            left: 8px;
-            top: 2px;
-            transform: translateX(-50%);
+            left: 13px;
+            top: 4px;
+            transform: translate(-50%, 0);
             border-radius: 50%;
             border: 2px solid #fff;
             background: #e8927c;
         }
         .timeline-dot {
-            width: 12px; height: 12px;
+            width: 14px; height: 14px;
             box-shadow: 0 0 0 4px #fde8df;
         }
         .timeline-dot-current {
-            width: 16px; height: 16px;
+            width: 18px; height: 18px;
             background: #f0b8a8;
             box-shadow: 0 0 0 4px #fde8df;
             animation: dotPulse 2s ease-in-out infinite;
