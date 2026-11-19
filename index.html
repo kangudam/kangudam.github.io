@@ -122,6 +122,7 @@
         .list-item:hover{ background: #fbd4c6; }
         .plan-card      { background: #fdf8f3; border: 1px solid #ede5df; border-radius: 0.875rem; display: flex; flex-direction: column; transition: background 0.2s, border-color 0.2s, transform 0.25s cubic-bezier(.34,1.56,.64,1); }
         .plan-card:hover{ background: #fef0eb; border-color: #f5c9bb; transform: translateY(-4px); }
+        .intro-chip { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; background: #fde8df; color: #8a4a32; font-size: 0.8rem; font-weight: 600; }
         .contact-card   { background: linear-gradient(135deg,#fff4ef 0%,#fff0f5 50%,#fffbf0 100%); border: 1px solid #f5c9bb; border-radius: 1.5rem; }
 
         /* ══ 방명록 ════════════════════════════════════════════════ */
@@ -391,6 +392,32 @@
                     </div>
                 </div>
                 <p class="text-xs mt-4 pt-4" style="color:#c8b8b0; border-top: 1px solid #ede5df;">MBTI · ENFJ</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <!-- 왼쪽: 이런 사람이에요 -->
+                <div class="card p-6 sm:p-8 md:col-span-2 fade-up">
+                    <h3 class="text-lg font-bold mb-3" style="color:#3d3530;">이런 사람이에요</h3>
+                    <p class="text-sm sm:text-base leading-relaxed mb-4" style="color:#5c4a42;">활발하고 사교성이 좋은 편이라 사람들과 어울리고 소통하는 일이 즐겁습니다. 사진 찍기와 영상 제작·편집을 좋아하고, 지금은 경영정보학부 학생회에서 활동하고 있습니다.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="intro-chip">활발함</span>
+                        <span class="intro-chip">사교성</span>
+                        <span class="intro-chip">사진</span>
+                        <span class="intro-chip">영상 제작·편집</span>
+                        <span class="intro-chip">학생회</span>
+                    </div>
+                </div>
+
+                <!-- 오른쪽: 프로필 -->
+                <div class="card p-6 sm:p-8 md:col-span-1 fade-up">
+                    <h3 class="text-lg font-bold mb-4" style="color:#3d3530;">프로필</h3>
+                    <ul class="space-y-3 text-sm sm:text-base">
+                        <li><span class="font-semibold" style="color:#c97058;">학교</span> <span style="color:#5c4a42;">· 국민대학교 경영정보학부 26학번</span></li>
+                        <li><span class="font-semibold" style="color:#c97058;">활동</span> <span style="color:#5c4a42;">· 경영정보학부 학생회</span></li>
+                        <li><span class="font-semibold" style="color:#c97058;">좋아하는 것</span> <span style="color:#5c4a42;">· 사진 촬영, 영상 제작·편집</span></li>
+                        <li><span class="font-semibold" style="color:#c97058;">MBTI</span> <span style="color:#5c4a42;">· ENFJ</span></li>
+                    </ul>
+                </div>
             </div>
         </section>
 
