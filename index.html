@@ -161,22 +161,41 @@
         .cheer-count { font-variant-numeric: tabular-nums; }
 
         /* ══ 타임라인 ════════════════════════════════════════════ */
-        .timeline-line { border-left: 2px solid #f5c9bb; }
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+        /* 세로선: 첫 점 중심 ~ 마지막 점 중심 사이만 */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            transform: translateX(-50%);
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: #f5c9bb;
+        }
+        .timeline-item { position: relative; }
+        /* 점: 선과 동일한 left 기준 + translateX(-50%)로 중심 정렬 */
+        .timeline-dot,
+        .timeline-dot-current {
+            position: absolute;
+            left: 8px;
+            top: 2px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            border: 2px solid #fff;
+            background: #e8927c;
+        }
         .timeline-dot {
             width: 12px; height: 12px;
-            background: #e8927c;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 0 3px #f5c9bb;
-            flex-shrink: 0;
+            box-shadow: 0 0 0 4px #fde8df;
         }
         .timeline-dot-current {
             width: 16px; height: 16px;
             background: #f0b8a8;
-            border: 2px solid #fff;
-            border-radius: 50%;
             box-shadow: 0 0 0 4px #fde8df;
-            flex-shrink: 0;
             animation: dotPulse 2s ease-in-out infinite;
         }
         @keyframes dotPulse {
@@ -384,18 +403,18 @@
             </div>
 
             <div class="card p-6 sm:p-10 fade-up">
-                <div class="timeline-line pl-6 sm:pl-8 space-y-8 ml-1.5">
+                <div class="timeline">
 
                     <!-- 항목 1 -->
-                    <div class="relative fade-up">
-                        <div class="timeline-dot absolute -left-9 sm:-left-11 top-1.5"></div>
+                    <div class="timeline-item fade-up pb-8">
+                        <span class="timeline-dot"></span>
                         <p class="text-xs font-semibold mb-1" style="color:#c97058;">2026</p>
                         <p class="text-base sm:text-lg font-semibold" style="color:#3d3530;">국민대학교 경영정보학부 입학</p>
                     </div>
 
                     <!-- 항목 2 (지금) -->
-                    <div class="relative fade-up">
-                        <div class="timeline-dot-current absolute -left-9 sm:-left-11 top-1.5"></div>
+                    <div class="timeline-item fade-up">
+                        <span class="timeline-dot-current"></span>
                         <p class="text-xs font-semibold mb-1" style="color:#e8927c;">지금</p>
                         <p class="text-base sm:text-lg font-semibold" style="color:#3d3530;">경영정보에 대한 전반적인 지식을 알아가는 중</p>
                     </div>
